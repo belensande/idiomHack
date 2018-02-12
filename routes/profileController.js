@@ -18,6 +18,27 @@ router.use("/", function (req, res, next) {
 	isLoggedIn(req, res, next);
 });
 
+router.get('/:id', function (req, res, next) {
+	if (req.session.currentUser._id === req.params.id) {
+		res.render('profile/show', { user: req.session.currentUser });
+	} else {
+		User.findById(req.params.id).populate({
+			path: 'languagesOffered',
+			model: 'Language'
+		}).populate({
+			path: 'languagesDemanded',
+			model: 'Language'
+		}).exec((err, user) => {
+			if (err || !user) {
+				next(err || new Error("User not found"));
+				return;
+			}
+
+			res.render('profile/show', { user });
+		});
+	}
+});
+
 router.get('/:id/edit', function (req, res, next) {
 	if (req.session.currentUser._id === req.params.id) {
 		Language.find((err, languages) => {

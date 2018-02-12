@@ -1,15 +1,18 @@
-<h2>Available languages</h2>
 <ul class="list-group col-sm-6">
-<% languages.forEach((language) => { %>
-	<li class="list-group-item container-separated-items">
-		<div class="container-vertically-aligned">
-			<img class="flag" src="<%= language.flagImgPath %>" />
-			<span><%= language.name %></span> 
-		</div>
-		<a class="btn btn-danger right" href="/languages/<%= language._id %>/delete">Delete</a>
-	</li>
-<% }); %>
+	<div class="container-separated-items">
+		<h2>Available languages</h2>
+		<a href="/languages/new">new  <span class="glyphicon glyphicon-plus"></span></a>
+	</div>
+	<% languages.forEach((language) => { %>
+		<li class="list-group-item container-separated-items">
+			<div class="container-vertically-aligned">
+				<img class="flag" src="<%= language.flagImgPath %>" />
+				<span><%= language.name %></span> 
+			</div>
+			<div class="links">
+				<a href="/languages/<%= language._id %>/edit">edit <span class="glyphicon glyphicon-pencil"></span></a>
+				<a href="/languages/<%= language._id %>/delete">delete <span class="glyphicon glyphicon-trash"></span></a>
+			<div>
+		</li>
+	<% }); %>
 </ul>
-<div class="col-sm-6">
-	<a class="btn btn-primary" href="/languages/new">New</a>
-</div>

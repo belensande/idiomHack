@@ -4,7 +4,7 @@
 		<form action="/signup" method="POST" enctype="multipart/form-data">
 			<div class="form-group">
 			  <label for="name" class="control-label">Name</label>
-			  <input type="text" class="form-control" name="name" id="name" value="<%= userInfo.name %>"/>
+			  <input type="text" class="form-control" name="name" id="name" required value="<%= userInfo.name %>"/>
 			</div>
 			<div class="form-group">
 				<label for="password" class="control-label">Password</label>
@@ -17,7 +17,7 @@
       <div class="form-group">
         <label for="photo" class="control-label">Avatar</label>
         <% if(userInfo.imageUrl) { %>
-          <img src="<%= userInfo.imageUrl %>" class="little-profile"/>
+          <img src="<%= userInfo.imageUrl %>" class="little-profile separated-block"/>
           <input type="hidden" name="imageUrl" value="<%= userInfo.imageUrl %>" />
         <% } %>
         <input type="file" name="photo" id="photo" class="form-control">

@@ -34,10 +34,25 @@ img.flag {
 
 img.little-profile {
 	height: 100px;
+}
+
+.separated-block {
 	display: block;
 	margin-bottom: 10px;
 }
 
 .list-group-item {
 	margin-bottom: -2px;
+}
+
+.navbar-nav > li > a:last-child {
+	padding-right: 0;
+}
+
+p {
+	white-space:pre-line;
+}
+
+.links a{
+	margin-left:10px;
 }

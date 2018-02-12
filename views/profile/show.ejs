@@ -1,18 +1,20 @@
 <div class="row">
-	<div class="col-sm-4">
-		<div class="container-separated-items">
-			<h3>Profile</h3> 
+	<div class="container-separated-items col-sm-12">
+		<h3><%= user.name %> profile</h3> 
+		<% if(user._id == currentUser._id){ %>
 			<a href="/profile/<%= currentUser._id %>/edit">edit <span class="glyphicon glyphicon-pencil"></span></a>
-		</div>
+		<% } %>
+	</div>
+	<div class="col-sm-4">
 		<div class="list-group">
 			<div class="list-group-item">
-				<img src="<%= currentUser.imageUrl %>" class="little-profile"/>
-				<h4><%= currentUser.name %></h4>
+				<img src="<%= user.imageUrl %>" class="little-profile"/>
+				<h4><%= user.name %></h4>
 			</div>
 		</div>
 		<ul class="list-group">
 			<li class="list-group-item">Teach</li> 
-			<% currentUser.languagesOffered.forEach((language) => { %>
+			<% user.languagesOffered.forEach((language) => { %>
 				<li class="list-group-item container-vertically-aligned">
 					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/><%= language.name %>
 				</li>
@@ -20,28 +22,46 @@
 		</ul>
 		<ul class="list-group">
 			<li class="list-group-item">Learn</li> 
-			<% currentUser.languagesDemanded.forEach((language) => { %>
+			<% user.languagesDemanded.forEach((language) => { %>
 				<li class="list-group-item container-vertically-aligned">
 					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/><%= language.name %>
 				</li>
 			<% }); %>
 		</ul>
+		<div class="list-group">
+			<div class="list-group-item">
+				<span>Others</span>
+			</div>
+			<% if( user.gender ) { %>
+				<div class="list-group-item">
+					<small class="samll">Gender: <%= user.gender %></small>
+				</div>
+			<% } %>
+			<% if( user.city ) { %>
+				<div class="list-group-item">
+					<small class="samll">City: <%= user.city %></small>
+				</div>
+			<% } %>
+			<div class="list-group-item">
+				<small class="samll">Email: <%= user.email %></small>
+			</div>
+		</div>
 	</div>
 	<div class="col-sm-8">
-		<h3>Dashboard</h3> 
 		<div class="list-group">
 			<div class="list-group-item">
-				<span>Pending contact requests</span>
+				<span>Description</span>
+			</div>
+			<div class="list-group-item">
+				<p><%= user.description %></p>
 			</div>
 		</div>
 		<div class="list-group">
 			<div class="list-group-item">
-				<span>Conversations with new messages</span>
+				<span>Interests</span>
 			</div>
-		</div>
-		<div class="list-group">
 			<div class="list-group-item">
-				<span>Events at <%= currentUser.city %></span>
+				<p><%= user.interests %></p>
 			</div>
 		</div>
 	</div>

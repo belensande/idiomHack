@@ -66,6 +66,62 @@ router.post("/", upload.single('photo'), (req, res, next) => {
 	});
 });
 
+router.get("/:id/edit", (req, res, next) => {
+	Language.findById(req.params.id, (err, language) => {
+		if (err || !language) {
+			next(err || new Error("Language not found"));
+			return;
+		}
+		res.render('languages/edit', { language });
+	});
+});
+
+router.post("/:id", upload.single('photo'), (req, res, next) => {
+
+	let languageInfo = {
+		"name": req.body.name,
+		"flagImgPath": req.body.flagImgPath
+	};
+
+	if (req.file) {
+		languageInfo["flagImgPath"] = `/images/flags/${req.file.filename}`;
+	}
+
+	if (languageInfo.name === "") {
+		res.render('languages/edit', { message: 'Name is mandatory', language: languageInfo, "language._id": req.params.id });
+	}
+
+	Language.findOne({ name: languageInfo.name, _id: { $ne: req.params.id} }, (err, lang) => {
+		if (err) {
+			next(err);
+			return;
+		}
+
+		if (lang) {
+			res.render('languages/edit', { message: `There's already a language named ${languageInfo.name}`, language: languageInfo, "language._id": req.params.id });
+			return;
+		}
+
+		Language.findByIdAndUpdate(req.params.id, languageInfo, { new: true }, (err, language) => {
+			if (err || !language) {
+				next(err || new Error("Language not found"));
+				return;
+			}
+			res.redirect("/languages");
+		});
+	});
+});
+
+router.get("/:id/delete", (req, res, next) => {
+	Language.findByIdAndRemove(req.params.id, (err) => {
+		if (err) {
+			next(err);
+			return;
+		}
+		res.redirect("/languages");
+	});
+});
+
 function checkRoles(role) {
 	return function (req, res, next) {
 		if (req.session.currentUser && req.session.currentUser.role === role) {

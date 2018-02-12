@@ -56,3 +56,15 @@ p {
 .links a{
 	margin-left:10px;
 }
+
+.navbar {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 100%;
+	z-index: 1000;
+}
+
+.container-body {
+	margin-top:80px;
+}

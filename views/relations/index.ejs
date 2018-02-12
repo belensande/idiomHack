@@ -1,0 +1,18 @@
+<div class="list-group">
+	<div class="list-group-item row container-separated-items title">
+		<div class="col-sm-4">Name</div>
+		<div class="col-sm-4">Offered</div>
+		<div class="col-sm-4">Demanded</div>
+	</div>
+	<% relations.map((rel) => {return rel.users[0]._id == currentUser._id ? rel.users[1] : rel.users[0]}).forEach((friend) => { %>
+		<div class="list-group-item row container-separated-items">
+			<div class="col-sm-4"><a href="/profile/<%= friend._id %>"><%= friend.name %></a></div>
+			<div class="col-sm-4"><% friend.languagesOffered.forEach((lang) => { %>
+				<span><img class="flag" src="<%= lang.flagImgPath %>"/> <%= lang.name %></span>
+			<% }); %></div>
+			<div class="col-sm-4"><% friend.languagesDemanded.forEach((lang) => { %>
+				<span><img class="flag" src="<%= lang.flagImgPath %>"/> <%= lang.name %></span>
+			<% }); %></div>
+		</div>
+	<% }); %>
+</div>

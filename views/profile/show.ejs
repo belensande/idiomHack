@@ -3,6 +3,14 @@
 		<h3><%= user.name %> profile</h3> 
 		<% if(user._id == currentUser._id){ %>
 			<a href="/profile/<%= currentUser._id %>/edit">edit <span class="glyphicon glyphicon-pencil"></span></a>
+		<% } else if(!typeRel) { %>
+			<span>Not related <a href="/relations/<%= user._id %>/askContact">contact <span class="glyphicon glyphicon-link"></span></a></span>
+		<% } else if(typeRel == 'friends') { %>
+			<span>In your contact list <a href="/conversations/<%= user._id %>">list conversations <span class="glyphicon glyphicon-transfer"></span></a> <a href="/conversations/<%= user._id %>/new">new conversation <span class="glyphicon glyphicon-send"></span></a></span>
+		<% } else if(typeRel == 'waiting') { %>
+			<span>Waiting to contact</span>
+		<% } else if(typeRel == 'pending') { %>
+			<span>You have a request <a href="/relations/<%= user._id %>/acceptContact">accept <span class="glyphicon glyphicon-ok"></span></a></span>
 		<% } %>
 	</div>
 	<div class="col-sm-4">

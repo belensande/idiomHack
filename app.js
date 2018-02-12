@@ -13,6 +13,7 @@ const users = require('./routes/users');
 const authController = require('./routes/authController');
 const profileController = require('./routes/profileController');
 const languagesController = require('./routes/admin/languagesController');
+const relationController = require('./routes/relationController');
 
 mongoose.connect("mongodb://localhost:27017/idiomHacker");
 
@@ -57,6 +58,7 @@ app.use('/', authController);
 app.use('/languages', languagesController);
 app.use('/profile', profileController);
 app.use('/users', users);
+app.use('/relations', relationController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

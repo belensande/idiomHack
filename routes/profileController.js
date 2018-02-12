@@ -6,6 +6,7 @@ const upload = multer({ dest: './public/images/profile' });
 // User model
 const User = require("../models/user");
 const Language = require("../models/language");
+const Relationship = require("../models/relationship");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -16,6 +17,69 @@ const cities = User.schema.path('city').enumValues;
 
 router.use("/", function (req, res, next) {
 	isLoggedIn(req, res, next);
+});
+
+router.get('/search', function (req, res, next) {
+	Language.find((err, languages) => {
+		if (err) {
+			next(err);
+			return;
+		}
+		res.render("profile/search", { userInfo: {}, languages, genders, cities});
+	});
+});
+
+router.post('/', function (req, res, next) {
+	let userInfo = {
+		name: req.body.name,
+		gender: req.body.gender,
+		city: req.body.city,
+		languagesOffered: JSON.parse(req.body.languagesOffered),
+		languagesDemanded: JSON.parse(req.body.languagesDemanded)
+	};
+	Language.find((err, languages) => {
+		if (err) {
+			next(err);
+			return;
+		}
+		if (Object.keys(userInfo).every((key) => {
+			return !userInfo[key];
+		})) {
+			res.render("profile/search", { message: "You must fill any field", userInfo, languages, genders, cities });
+		} else {
+			let query = Object.keys(userInfo).reduce((value, key) => {
+				if (userInfo[key]) {
+					if (Array.isArray(userInfo[key])) {
+						if (userInfo[key].length) {
+							value[key] = { $all: userInfo[key] };
+						}
+					} else {
+						value[key] = userInfo[key];
+					}
+				}
+				return value;
+			}, {});
+
+			User.find(query).populate({
+				path: 'languagesOffered',
+				model: 'Language'
+			}).populate({
+				path: 'languagesDemanded',
+				model: 'Language'
+			}).exec(
+				(err, users) => {
+					if (err) {
+						mext(err);
+						return;
+					}
+					if (!users || !users.length) {
+						res.render("profile/search", { message: "No users found", userInfo, languages, genders, cities });
+						return;
+					}
+					res.render("profile/index", { users });
+				});
+		}
+	});
 });
 
 router.get('/:id', function (req, res, next) {
@@ -33,8 +97,21 @@ router.get('/:id', function (req, res, next) {
 				next(err || new Error("User not found"));
 				return;
 			}
-
-			res.render('profile/show', { user });
+			Relationship.findOne({ users: { $all: [req.session.currentUser._id, user._id.toString()] } }, (err, rel) => {
+				if (err) {
+					next(err);
+					return;
+				}
+				let typeRel = "";
+				if (rel && rel.accepted) {
+					typeRel = "friends";
+				} else if (rel && rel.users[0] == req.session.currentUser._id) {
+					typeRel = "waiting";
+				} else if (rel && rel.users[1] == req.session.currentUser._id) {
+					typeRel = "pending";
+				}
+				res.render('profile/show', { user, typeRel });
+			});
 		});
 	}
 });

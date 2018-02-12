@@ -68,3 +68,7 @@ p {
 .container-body {
 	margin-top:80px;
 }
+
+.title {
+	font-weight: 700;
+}

@@ -1,0 +1,43 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+form p {
+	margin-top:10px;
+}
+
+img.flag {
+	width: 15px;
+	height: 15px;
+	margin-right:5px;
+}
+
+.container-separated-items {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+.container-vertically-aligned {
+	display: flex;
+	align-items: center;
+}
+
+#languagesDemanded, #languagesOffered {
+	max-height: 300px;
+	overflow-y: scroll;
+}
+
+img.little-profile {
+	height: 100px;
+	display: block;
+	margin-bottom: 10px;
+}
+
+.list-group-item {
+	margin-bottom: -2px;
+}

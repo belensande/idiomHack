@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-sm-4">
+		<div class="container-separated-items">
+			<h3>Profile</h3> 
+			<a href="/profile/<%= currentUser._id %>/edit">edit <span class="glyphicon glyphicon-pencil"></span></a>
+		</div>
+		<div class="list-group">
+			<div class="list-group-item">
+				<h4><%= currentUser.name %></h4>
+				<img src="<%= currentUser.imageUrl %>" class="little-profile"/>
+			</div>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item">Teach</li> 
+			<% currentUser.languagesOffered.forEach((language) => { %>
+				<li class="list-group-item container-vertically-aligned">
+					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/><%= language.name %>
+				</li>
+			<% }); %>
+		</ul>
+		<ul class="list-group">
+			<li class="list-group-item">Learn</li> 
+			<% currentUser.languagesDemanded.forEach((language) => { %>
+				<li class="list-group-item container-vertically-aligned">
+					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/><%= language.name %>
+				</li>
+			<% }); %>
+		</ul>
+	</div>
+	<div class="col-sm-8">
+		<h3>Dashboard</h3> 
+		<div class="list-group">
+			<div class="list-group-item">
+				<span>Pending contact requests</span>
+			</div>
+		</div>
+		<div class="list-group">
+			<div class="list-group-item">
+				<span>Conversations with new messages</span>
+			</div>
+		</div>
+		<div class="list-group">
+			<div class="list-group-item">
+				<span>Events at <%= currentUser.city %></span>
+			</div>
+		</div>
+	</div>
+</div>

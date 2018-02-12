@@ -1,0 +1,95 @@
+<h2>Sign up</h2>
+<div class="row">
+	<div class="col-sm-6">
+		<form action="/signup" method="POST" enctype="multipart/form-data">
+			<div class="form-group">
+			  <label for="name" class="control-label">Name</label>
+			  <input type="text" class="form-control" name="name" id="name" value="<%= userInfo.name %>"/>
+			</div>
+			<div class="form-group">
+				<label for="password" class="control-label">Password</label>
+				<input type="password" class="form-control" name="password" id="password" required value="<%= userInfo.password %>"/>
+      </div>
+			<div class="form-group">
+				<label for="email" class="control-label">Email</label>
+				<input type="email" class="form-control" name="email" id="email" required value="<%= userInfo.email %>"/>
+      </div>
+      <div class="form-group">
+        <label for="photo" class="control-label">Avatar</label>
+        <% if(userInfo.imageUrl) { %>
+          <img src="<%= userInfo.imageUrl %>" class="little-profile"/>
+          <input type="hidden" name="imageUrl" value="<%= userInfo.imageUrl %>" />
+        <% } %>
+        <input type="file" name="photo" id="photo" class="form-control">
+			</div>
+      <div class="form-group">
+        <label for="gender" class="control-label">Gender</label>
+        <select class="form-control" name="gender" id="gender">
+            <option disabled="disabled" <% if(!userInfo.gender) { %>selected="selected" <% } %>>Select one gender</option>
+            <% for(let i = 0; i < genders.length ; i++) { %>
+              <option value="<%= genders[i] %>" <% if(userInfo.gender == genders[i]) { %>selected="selected" <% } %>><%= genders[i] %></option>
+            <% } %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="city" class="control-label">City</label>
+        <select class="form-control" name="city" id="city">
+          <option disabled="disabled" <% if(!userInfo.city) { %>selected="selected" <% } %>>Select one city</option>
+          <% for(let i = 0; i < cities.length ; i++) { %>
+            <option value="<%= cities[i] %>" <% if(userInfo.city == cities[i]) { %>selected="selected" <% } %>><%= cities[i] %> </option>
+          <% } %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="description" class="control-label">Description</label>
+        <textarea class="form-control" name="description" id="description" rows="5"><%= userInfo.description %></textarea>
+      </div>
+      <div class="form-group">
+        <label for="interests" class="control-label">Interests</label>
+        <textarea class="form-control" name="interests" id="interests" rows="5"><%= userInfo.interests %></textarea>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <label for="languagesOffered" class="control-label">Offered languages</label>
+          <ol class="list-group" id="languagesOffered">
+            <% languages.forEach((language) => { %>
+            <li id="<%= language._id %>" class="list-group-item <% if(userInfo.languagesOffered && userInfo.languagesOffered.indexOf(language._id.toString()) > -1) { %>active<% } %>">
+                <div class="container-vertically-aligned">
+                  <img class="flag" src="<%= language.flagImgPath %>" />
+                  <span>
+                    <%= language.name %>
+                  </span>
+                </div>
+              </li>
+            <% }); %>
+          </ol>
+          <input id="hiddenLanguagesOffered" type="hidden" name="languagesOffered"/>
+        </div>
+        <div class="form-group col-sm-6">
+          <label for="languagesDemanded" class="control-label">Demanded languages</label>
+          <ol class="list-group" id="languagesDemanded">
+            <% languages.forEach((language) => { %>
+               <li id="<%= language._id %>" class="list-group-item  <% if(userInfo.languagesDemanded && userInfo.languagesDemanded.indexOf(language._id.toString()) > -1) { %>active<% } %>">
+                <div class="container-vertically-aligned">
+                  <img class="flag" src="<%= language.flagImgPath %>" />
+                  <span>
+                    <%= language.name %>
+                  </span>
+                </div>
+              </li>
+            <% }); %>
+          </ol>
+          <input id="hiddenLanguagesDemanded" type="hidden" name="languagesDemanded"/>
+        </div>
+      </div>
+			<button onclick="submitMyForm()" class="btn btn-primary">Sign up</button>
+
+			<p>
+				Already have an account? <a href="/login">Log in</a>
+			</p>
+      <br/>
+		</form>
+	</div>
+</div>
+
+<script src="/javascripts/selectables.js"></script>

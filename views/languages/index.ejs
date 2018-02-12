@@ -1,0 +1,15 @@
+<h2>Available languages</h2>
+<ul class="list-group col-sm-6">
+<% languages.forEach((language) => { %>
+	<li class="list-group-item container-separated-items">
+		<div class="container-vertically-aligned">
+			<img class="flag" src="<%= language.flagImgPath %>" />
+			<span><%= language.name %></span> 
+		</div>
+		<a class="btn btn-danger right" href="/languages/<%= language._id %>/delete">Delete</a>
+	</li>
+<% }); %>
+</ul>
+<div class="col-sm-6">
+	<a class="btn btn-primary" href="/languages/new">New</a>
+</div>

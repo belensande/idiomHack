@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\esquemas",
+    "\\public",
+    "\\public\\images\\flags",
+    "\\public\\images\\profile",
+    "\\routes",
+    "\\views",
+    "\\views\\auth",
+    "\\views\\languages"
+  ],
+  "SelectedNode": "\\public\\images",
+  "PreviewInSolutionExplorer": false
+}

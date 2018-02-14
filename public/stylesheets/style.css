@@ -24,7 +24,37 @@ img.flag {
 
 .container-vertically-aligned {
 	display: flex;
-	align-items: center;
+}
+
+.wrappable-content {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	white-space: nowrap;
+}
+
+.wrappable-content > * {
+	margin-bottom: 0;
+	padding-bottom: 3px;
+	padding-top: 3px;
+}
+
+.wrappable-content > *:not(:last-child) {
+    padding-right: 10px;
+}
+
+.links {
+	display: flex;
+	flex-direction: column;
+	white-space: nowrap;
+	align-items: flex-end;
+	align-self: flex-end;
+	margin-bottom: 10px;
+}
+
+.links > * {
+	padding-bottom: 1px;
+	padding-top: 1px;
 }
 
 #languagesDemanded, #languagesOffered {
@@ -53,8 +83,8 @@ p {
 	white-space:pre-line;
 }
 
-.links a{
-	margin-left:10px;
+.links > *:not(:first-child) {
+	margin-left: 10px;
 }
 
 .navbar {
@@ -71,4 +101,16 @@ p {
 
 .title {
 	font-weight: 700;
+}
+
+.profile-title {
+	margin-bottom:10px;
+}
+
+.no-wrap {
+	white-space: nowrap;
+}
+
+.no-wrap > *:not(:last-child) {
+	margin-right: 5px;
 }

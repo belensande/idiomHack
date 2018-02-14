@@ -1,18 +1,30 @@
-<div class="list-group">
-	<div class="list-group-item row container-separated-items title">
-		<div class="col-sm-4">Name</div>
-		<div class="col-sm-4">Offered</div>
-		<div class="col-sm-4">Demanded</div>
-	</div>
-	<% relations.map((rel) => {return rel.users[0]._id == currentUser._id ? rel.users[1] : rel.users[0]}).forEach((friend) => { %>
-		<div class="list-group-item row container-separated-items">
-			<div class="col-sm-4"><a href="/profile/<%= friend._id %>"><%= friend.name %></a></div>
-			<div class="col-sm-4"><% friend.languagesOffered.forEach((lang) => { %>
-				<span><img class="flag" src="<%= lang.flagImgPath %>"/> <%= lang.name %></span>
-			<% }); %></div>
-			<div class="col-sm-4"><% friend.languagesDemanded.forEach((lang) => { %>
-				<span><img class="flag" src="<%= lang.flagImgPath %>"/> <%= lang.name %></span>
-			<% }); %></div>
-		</div>
-	<% }); %>
+<div class="row">
+  <div class="col-xs-12">
+    <h3>Conversations</h3>
+    <div class="list-group">
+      <div class="list-group-item title">
+        Contact
+      </div>
+	    <% relations.forEach((rel) => { let friend = rel.users[0]._id == currentUser._id ? rel.users[1] : rel.users[0]; %>
+		    <div class="list-group-item">
+          <div class="row">
+			      <div class="col-xs-12 container-separated-items hidden-sm-up">
+              <div class="no-wrap">
+                <a href="/profile/<%= friend._id %>"><%= friend.name %></a>
+                <% if(rel.messagesUnread) { %>
+                  <a href="/relations/<%= friend._id %>">
+                    <span class="badge badge-light"><%= rel.messagesUnread %></span>
+                  </a>
+                <% } %>
+              </div>
+              <div class="no-wrap">
+                <a href="/relations/<%= friend._id %>"><span class="glyphicon glyphicon-search"></span></a>
+                <a href="/relations/<%= friend._id %>/send"><span class="glyphicon glyphicon-send"></span></a>
+              </div>
+            </div>
+          </div>
+		    </div>
+	    <% }); %>
+    </div>
+  </div>
 </div>

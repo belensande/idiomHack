@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const Message = require("./message");
+
 const relationshipSchema = new Schema({
 	users: {
 		type: [Schema.Types.ObjectId],
@@ -13,6 +15,12 @@ const relationshipSchema = new Schema({
 }, {
 		timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 	});
+
+relationshipSchema.virtual('messages', {
+	ref: 'Message',  
+	localField: '_id',  
+	foreignField: 'relation' 
+});
 
 const Relationship = mongoose.model("Relationship", relationshipSchema);
 

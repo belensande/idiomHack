@@ -54,7 +54,7 @@ router.post('/', function (req, res, next) {
 							value[key] = { $all: userInfo[key] };
 						}
 					} else {
-						value[key] = userInfo[key];
+						value[key] = { $regex: new RegExp(userInfo[key], "i")};
 					}
 				}
 				return value;

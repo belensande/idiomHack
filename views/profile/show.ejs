@@ -1,17 +1,32 @@
 <div class="row">
 	<div class="container-separated-items col-sm-12">
-		<h3><%= user.name %> profile</h3> 
-		<% if(user._id == currentUser._id){ %>
-			<a href="/profile/<%= currentUser._id %>/edit">edit <span class="glyphicon glyphicon-pencil"></span></a>
-		<% } else if(!typeRel) { %>
-			<span>Not related <a href="/relations/<%= user._id %>/askContact">contact <span class="glyphicon glyphicon-link"></span></a></span>
-		<% } else if(typeRel == 'friends') { %>
-			<span>In your contact list <a href="/conversations/<%= user._id %>">list conversations <span class="glyphicon glyphicon-transfer"></span></a> <a href="/conversations/<%= user._id %>/new">new conversation <span class="glyphicon glyphicon-send"></span></a></span>
-		<% } else if(typeRel == 'waiting') { %>
-			<span>Waiting to contact</span>
-		<% } else if(typeRel == 'pending') { %>
-			<span>You have a request <a href="/relations/<%= user._id %>/acceptContact">accept <span class="glyphicon glyphicon-ok"></span></a></span>
-		<% } %>
+    <div class="wrappable-content profile-title">
+      <h3>
+        <%= user.name %> profile
+      </h3>
+      <% if(user._id != currentUser._id){ %>
+        <% if(!typeRel) { %>
+          <span>(Not related)</span>
+        <% } else if(typeRel == 'friends') { %>
+          <span>(In your contact list)</span>
+        <% } else if(typeRel == 'waiting') { %>
+          <span>(Waiting to contact)</span>
+        <% } else if(typeRel == 'pending') { %>
+          <span>(You have a request)</span>
+        <% } %>
+      <% } %>
+    </div>
+    <div class="links">
+		  <% if(user._id == currentUser._id){ %>
+			  <a href="/profile/<%= currentUser._id %>/edit">edit <span class="glyphicon glyphicon-pencil"></span></a>
+		  <% } else if(!typeRel) { %>
+			  <a href="/relations/<%= user._id %>/askContact">contact <span class="glyphicon glyphicon-link"></span></a>
+		  <% } else if(typeRel == 'friends') { %>
+			  <a href="/conversations/<%= user._id %>">list conversations <span class="glyphicon glyphicon-transfer"></span></a> <a href="/relations/<%= user._id %>/send">new message <span class="glyphicon glyphicon-send"></span></a>
+		  <% } else if(typeRel == 'pending') { %>
+			  <a href="/relations/<%= user._id %>/acceptContact">accept <span class="glyphicon glyphicon-ok"></span></a>
+		  <% } %>
+    </div>
 	</div>
 	<div class="col-sm-4">
 		<div class="list-group">

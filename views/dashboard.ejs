@@ -40,12 +40,12 @@
     <% } %>
     <div class="list-group">
       <div class="list-group-item">
-        <span>You have <% if(requests) { %><a href="/relations/contacts"><small class="label badge-pill"><%= requests %></small></a> requests waiting for your approval <% } else { %>no new requests</span><% } %>
+        <span>You have <% if(requests) { %><a href="/relations"><small class="label badge-pill"><%= requests %></small></a> requests waiting for your approval <% } else { %>no new requests</span><% } %>
       </div>
     </div>
 		<div class="list-group">
 			<div class="list-group-item">
-        <span>You have received <% if(newMessages){ %><a href="/relations"><small class="label badge-pill"><%= newMessages %></small></a> new messages<% } else { %>no new nessages</span><% } %>
+        <span>You have received <% if(newMessages){ %><a href="/relations/conversations"><small class="label badge-pill"><%= newMessages %></small></a> new messages<% } else { %>no new nessages</span><% } %>
 			</div>
 		</div>
     <div class="list-group">

@@ -38,7 +38,7 @@ app.use(session({
 	secret: 'my language social network',
 	resave: true,
 	saveUninitialized: true,
-	cookie: { maxAge: 600000 }
+	cookie: { maxAge: 24 * 60 * 1000 }
 }));
 
 app.use((req, res, next) => {

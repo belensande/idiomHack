@@ -1,0 +1,39 @@
+<div class="writer">
+	<div class="container">
+		<form action="/relations/<%= contact %>" method="POST">
+			<div class="form-group">
+				<textarea class="form-control" name="text" id="text" rows="1"></textarea>
+			</div>
+			<button type="submit" class="btn btn-default btn-xs">Send</button>
+		</form>
+	</div>
+</div>
+<div class="chat">
+  <div class="container">
+    <% messages.forEach( msg => { %>
+	    <div class="list-group">
+			  <div class="row">
+				  <div class="col-xs-2 <% if(msg.sender.id == currentUser._id) { %>right<% } %>">
+            <div class="list-group-item">
+              <a href="/profile/<%= msg.sender.id %>">
+                <img class="little-profile" src="<%= msg.sender.imageUrl %>" />
+              </a>
+					    <div>
+						    <small><%= msg.sender.name %></small>
+						    <div>
+							    <% msg.sender.languagesOffered.forEach(lang => { %>
+								    <img class="flag" src="<%= lang.flagImgPath %>" alt="<%= lang.name %>" title="<%= lang.name %>"/>
+                  <% }); %>
+						    </div>
+					    </div>
+				    </div>
+          </div>
+				  <div class="col-xs-10 message-text list-group-item <% if(msg.sender.id == currentUser._id) { %>right<% } else if(!msg.read) { %>list-group-item-info<% } %>">
+					  <p><%= msg.text %></p>
+					  <small><%= moment(msg.created_at).format("LLL") %></small>
+				  </div>
+			  </div>
+	    </div>
+    <% }); %>
+  </div>
+</div>

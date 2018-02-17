@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h3>Conversations</h3>
+    <div class="list-group">
+	    <% relations.forEach((rel) => { let friend = rel.users[0]._id == currentUser._id ? rel.users[1] : rel.users[0]; %>
+		    <div class="list-group-item">
+          <div class="row">
+			      <div class="col-xs-12 container-separated-items hidden-sm-up">
+              <div class="inline-content">
+                <div>
+                  <a href="/profile/<%= friend._id %>">
+                    <img class="little-profile" src="<%= friend.imageUrl %>" alt="<%= friend.name %>" title="<%= friend.name %>"/>
+                    </a>
+                </div>
+                <div>
+                  <div>
+                    <span class="space-right"><%= friend.name %> </span>
+                    <% friend.languagesOffered.forEach(lang => { %>
+								      <img class="flag" src="<%= lang.flagImgPath %>" alt="<%= lang.name %>" title="<%= lang.name %>"/>
+                    <% }); %>
+                  </div>
+                  <div>
+                    <% if(rel.messagesCount) { %>
+                      <small><%= moment(rel.lastUpdate).format("LLL") %></small>
+                      <% if(rel.messagesUnread) { %>
+                        <a href="/relations/<%= friend._id %>">
+                          <small class="label badge-pill">
+                            <%= rel.messagesUnread %>
+                          </small>
+                        </a>
+                      <% } %>
+                    <% } else { %>
+                      <small>No messages</small>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <a href="/relations/<%= friend._id %>">view <small class="glyphicon glyphicon-search"></small></a>
+              </div>
+            </div>
+          </div>
+		    </div>
+	    <% }); %>
+    </div>
+  </div>
+</div>

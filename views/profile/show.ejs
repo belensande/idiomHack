@@ -2,7 +2,7 @@
 	<div class="container-separated-items col-sm-12">
     <div class="wrappable-content profile-title">
       <h3>
-        <%= user.name %> profile
+        Profile
       </h3>
       <% if(user._id != currentUser._id){ %>
         <% if(!typeRel) { %>
@@ -18,13 +18,13 @@
     </div>
     <div class="links">
 		  <% if(user._id == currentUser._id){ %>
-			  <a href="/profile/<%= currentUser._id %>/edit">edit <span class="glyphicon glyphicon-pencil"></span></a>
+			  <a href="/profile/<%= currentUser._id %>/edit">edit <small class="glyphicon glyphicon-pencil"></small></a>
 		  <% } else if(!typeRel) { %>
-			  <a href="/relations/<%= user._id %>/askContact">contact <span class="glyphicon glyphicon-link"></span></a>
+			  <a href="/relations/<%= user._id %>/askContact">contact <small class="glyphicon glyphicon-link"></small></a>
 		  <% } else if(typeRel == 'friends') { %>
-			  <a href="/conversations/<%= user._id %>">list conversations <span class="glyphicon glyphicon-transfer"></span></a> <a href="/relations/<%= user._id %>/send">new message <span class="glyphicon glyphicon-send"></span></a>
+			  <a href="/relations/<%= user._id %>">new message <small class="glyphicon glyphicon-send"></small></a>
 		  <% } else if(typeRel == 'pending') { %>
-			  <a href="/relations/<%= user._id %>/acceptContact">accept <span class="glyphicon glyphicon-ok"></span></a>
+			  <a href="/relations/<%= user._id %>/acceptContact">accept <small class="glyphicon glyphicon-ok"></small></a>
 		  <% } %>
     </div>
 	</div>
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<ul class="list-group">
-			<li class="list-group-item">Teach</li> 
+			<li class="list-group-item title">Teach</li> 
 			<% user.languagesOffered.forEach((language) => { %>
 				<li class="list-group-item container-vertically-aligned">
 					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/><%= language.name %>
@@ -44,7 +44,7 @@
 			<% }); %>
 		</ul>
 		<ul class="list-group">
-			<li class="list-group-item">Learn</li> 
+			<li class="list-group-item title">Learn</li> 
 			<% user.languagesDemanded.forEach((language) => { %>
 				<li class="list-group-item container-vertically-aligned">
 					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/><%= language.name %>
@@ -52,27 +52,27 @@
 			<% }); %>
 		</ul>
 		<div class="list-group">
-			<div class="list-group-item">
+			<div class="list-group-item title">
 				<span>Others</span>
 			</div>
 			<% if( user.gender ) { %>
 				<div class="list-group-item">
-					<small class="samll">Gender: <%= user.gender %></small>
+					<span><%= user.gender %></span>
 				</div>
 			<% } %>
-			<% if( user.city ) { %>
+			<% if( user.city && user.city !== 'Other') { %>
 				<div class="list-group-item">
-					<small class="samll">City: <%= user.city %></small>
+          <span><%= user.city %></span>
 				</div>
 			<% } %>
 			<div class="list-group-item">
-				<small class="samll">Email: <%= user.email %></small>
+        <span><%= user.email %></span>
 			</div>
 		</div>
 	</div>
 	<div class="col-sm-8">
 		<div class="list-group">
-			<div class="list-group-item">
+			<div class="list-group-item title">
 				<span>Description</span>
 			</div>
 			<div class="list-group-item">
@@ -80,7 +80,7 @@
 			</div>
 		</div>
 		<div class="list-group">
-			<div class="list-group-item">
+			<div class="list-group-item title">
 				<span>Interests</span>
 			</div>
 			<div class="list-group-item">

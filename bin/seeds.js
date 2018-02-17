@@ -22,46 +22,34 @@ const admin = new User({
 
 const languages = [
 	{
-		name: 'English'
+		name: "Italian",
+		flagImgPath: "/images/flags/Italy.png"
 	},
 	{
-		name: "Spanish"
+		name: "French",
+		flagImgPath: "/images/flags/France.png"
 	},
 	{
-		name: 'French'
+		name: "German",
+		flagImgPath: "/images/flags/Germany.png"
 	},
-	{
-		name: 'German'
-	}
 ];
 
-Language.create(languages, (err, docs) => {
-	if (err) { throw err };
-	docs.forEach((language) => {
-		console.log(language.name)
+// Borrar las colecciones
+Language.collection.drop();
+User.collection.drop();
+
+// Create the languages and the admin user
+Language.create(languages)
+	.then(langs => {
+		admin.languagesOffered = [langs[0]._id];
+		admin.languagesDemanded = [langs[1]._id];
+		return admin.save();
 	})
-});
-
-Language.findOne({ name: "French" }, (err, lang) => {
-	if (err || !lang) {
-		throw err || new Error("Language not found");
-	}
-	admin.offeredLanguages = [lang._id];
-});
-
-Language.findOne({ name: "English" }, (err, lang) => {
-	if (err || !lang) {
-		throw err || new Error("Language not found");
-	}
-	admin.demandedLanguages = [lang._id];
-});
-
-User.create(admin, (err, user) => {
-	if (err) {
-		throw err;
-	}
-	console.log(user);
-	mongoose.connection.close();
-});
+	.then(user => {
+		console.log("USER CREATED SUCCESSFULLY");
+		console.log(user);
+		mongoose.connection.close();
+	});
 
 

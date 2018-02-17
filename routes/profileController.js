@@ -214,7 +214,7 @@ router.post('/:id', upload.single('photo'), function (req, res, next) {
 
 					req.session.currentUser = user;
 
-					res.redirect("/dashboard");
+					res.redirect(`/profile/${user._id}`);
 			});
 		});
 	} else {

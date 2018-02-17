@@ -1,7 +1,7 @@
 <ul class="list-group col-sm-6">
 	<div class="container-separated-items">
 		<h3>Available languages</h3>
-		<a href="/languages/new">new  <span class="glyphicon glyphicon-plus"></span></a>
+		<a href="/languages/new">new  <small class="glyphicon glyphicon-plus"></small></a>
 	</div>
 	<% languages.forEach((language) => { %>
 		<li class="list-group-item container-separated-items">
@@ -10,8 +10,8 @@
 				<span><%= language.name %></span> 
 			</div>
 			<div class="wrappable-content">
-				<a href="/languages/<%= language._id %>/edit">edit <span class="glyphicon glyphicon-pencil"></span></a>
-        <a href="/languages/<%= language._id %>/delete">delete <span class="glyphicon glyphicon-trash"></span></a>
+				<a href="/languages/<%= language._id %>/edit">edit <small class="glyphicon glyphicon-pencil"></small></a>
+        <a href="/languages/<%= language._id %>/delete">delete <small class="glyphicon glyphicon-trash"></small></a>
       </div>
 		</li>
 	<% }); %>

@@ -1,15 +1,17 @@
 {
   "ExpandedNodes": [
     "",
-    "\\esquemas",
+    "\\bin",
+    "\\models",
     "\\public",
+    "\\public\\images",
     "\\public\\images\\flags",
-    "\\public\\images\\profile",
+    "\\public\\javascripts",
+    "\\public\\stylesheets",
     "\\routes",
     "\\views",
-    "\\views\\auth",
-    "\\views\\languages"
+    "\\views\\profile"
   ],
-  "SelectedNode": "\\public\\images",
+  "SelectedNode": "\\routes\\profileController.js",
   "PreviewInSolutionExplorer": false
 }

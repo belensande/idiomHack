@@ -1,30 +1,96 @@
 <div class="row">
-  <div class="col-xs-12">
-    <h3>Conversations</h3>
-    <div class="list-group">
-      <div class="list-group-item title">
-        Contact
-      </div>
-	    <% relations.forEach((rel) => { let friend = rel.users[0]._id == currentUser._id ? rel.users[1] : rel.users[0]; %>
-		    <div class="list-group-item">
+  <div class="col-sm-12">
+    <h3>
+      Relations
+    </h3>
+  </div>
+  <div class="col-sm-8">
+		<div class="list-group">
+			<div class="list-group-item title">
+				<span>Contacts</span>
+			</div>
+      <% if(!accepted || !accepted.length) { %>
+        <div class="list-group-item">
+          <span>Contacts found</span>
+        </div>
+      <% } %>
+      <% accepted.forEach((rel) => { let friend = rel.users[0]._id == currentUser._id ? rel.users[1] : rel.users[0]; %>
+        <div class="list-group-item">
           <div class="row">
-			      <div class="col-xs-12 container-separated-items hidden-sm-up">
-              <div class="no-wrap">
-                <a href="/profile/<%= friend._id %>"><%= friend.name %></a>
-                <% if(rel.messagesUnread) { %>
-                  <a href="/relations/<%= friend._id %>">
-                    <span class="badge badge-light"><%= rel.messagesUnread %></span>
+            <div class="col-xs-12 container-separated-items">
+              <div class="inline-content">
+                <div>
+                  <a href="/profile/<%= friend._id %>">
+                    <img class="little-profile" src="<%= friend.imageUrl %>" alt="<%= friend.name %>" title="<%= friend.name %>"/>
                   </a>
-                <% } %>
+                </div>
+                <div>
+                  <div>
+                    <span class="space-right">
+                      <%= friend.name %>
+                    </span>
+                    <% friend.languagesOffered.forEach(lang => { %>
+								      <img class="flag" src="<%= lang.flagImgPath %>" alt="<%= lang.name %>" title="<%= lang.name %>"/>
+                    <% }); %>
+                  </div>
+                  <div>
+                    <% if(rel.messagesCount) { %>
+                      <small>
+                        <%= moment(rel.messages[0].created_at).format("LLL") %>
+                      </small>
+                      <% if(rel.messagesUnread) { %>
+                        <a href="/relations/<%= friend._id %>">
+                          <small class="label badge-pill">
+                            <%= rel.messagesUnread %>
+                          </small>
+                        </a>
+                      <% } %>
+                    <% } else { %>
+                      <span>No messages</span>
+                    <% } %>  
+                  </div>
+                </div>
               </div>
-              <div class="no-wrap">
-                <a href="/relations/<%= friend._id %>"><span class="glyphicon glyphicon-search"></span></a>
-                <a href="/relations/<%= friend._id %>/send"><span class="glyphicon glyphicon-send"></span></a>
+              <div>
+                <a href="/relations/<%= friend._id %>">view <small class="glyphicon glyphicon-search"></small></a>
               </div>
             </div>
           </div>
-		    </div>
-	    <% }); %>
+        </div>
+      <% }); %>
     </div>
   </div>
+	<div class="col-sm-4">
+		<div class="list-group">
+			<div class="list-group-item title">
+				<span>Requests</span>
+			</div>
+      <% if(!requests || !requests.length) { %>
+        <div class="list-group-item">
+          <span>No requests found</span>
+        </div>
+      <% } %>
+      <% requests.forEach(rel => { %>
+        <div class="list-group-item">
+          <a href="/profile/<%= rel.users[1]._id %>"><%= rel.users[1].name %></a>
+          <a href="/relations/<%= rel.users[1]._id %>/acceptContact">accept</a>
+        </div>
+      <% }); %>
+		</div>
+		<div class="list-group">
+			<div class="list-group-item title">
+				<span>Pending requests</span>
+			</div>
+      <% if(!pending || !pending.length) { %>
+        <div class="list-group-item">
+          <span>No pending requests found</span>
+        </div>
+      <% } %>
+      <% pending.forEach(rel => { %>
+        <div class="list-group-item">
+          <a href="/profile/<%= rel.users[0]._id %>"><%= rel.users[0].name %></a>
+        </div>
+      <% }); %>
+		</div>
+	</div>
 </div>

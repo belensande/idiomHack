@@ -2,47 +2,63 @@
 	<div class="col-sm-4">
 		<div class="container-separated-items">
 			<h3>Profile</h3> 
-			<a href="/profile/<%= currentUser._id %>/edit">edit <span class="glyphicon glyphicon-pencil"></span></a>
+			<a href="/profile/<%= currentUser._id %>/edit">edit <small class="glyphicon glyphicon-pencil"></small></a>
 		</div>
 		<div class="list-group">
 			<div class="list-group-item">
-				<img src="<%= currentUser.imageUrl %>" class="little-profile"/>
-				<h4><%= currentUser.name %></h4>
+				<img src="<%= currentUser.imageUrl %>" src="<%= currentUser.name %>" src="<%= currentUser.name %>" class="little-profile"/>
+          <h4><%= currentUser.name %></h4>
 			</div>
 		</div>
 		<ul class="list-group">
 			<li class="list-group-item">Teach</li> 
-			<% currentUser.languagesOffered.forEach((language) => { %>
+			<% currentUser.languagesOffered.forEach(language => { %>
 				<li class="list-group-item container-vertically-aligned">
-					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/><%= language.name %>
+					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/>
 				</li>
 			<% }); %>
 		</ul>
 		<ul class="list-group">
 			<li class="list-group-item">Learn</li> 
-			<% currentUser.languagesDemanded.forEach((language) => { %>
+			<% currentUser.languagesDemanded.forEach(language => { %>
 				<li class="list-group-item container-vertically-aligned">
-					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/><%= language.name %>
+					<img class="flag" src="<%= language.flagImgPath %>" alt="<%= language.name %>" title="<%= language.name %>"/>
 				</li>
 			<% }); %>
 		</ul>
 	</div>
 	<div class="col-sm-8">
-		<h3>Dashboard</h3> 
+		<h3>Dashboard</h3>
+    <% if(lastMessage) { %>
+      <div class="list-group">
+        <div class="list-group-item">
+          <span>
+            Last message <%= moment(lastMessage).format('LLL') %>
+          </span>
+        </div>
+      </div>
+    <% } %>
+    <div class="list-group">
+      <div class="list-group-item">
+        <span>You have <% if(requests) { %><a href="/relations/contacts"><small class="label badge-pill"><%= requests %></small></a> requests waiting for your approval <% } else { %>no new requests</span><% } %>
+      </div>
+    </div>
 		<div class="list-group">
 			<div class="list-group-item">
-				<span>Pending contact requests</span>
+        <span>You have received <% if(newMessages){ %><a href="/relations"><small class="label badge-pill"><%= newMessages %></small></a> new messages<% } else { %>no new nessages</span><% } %>
 			</div>
 		</div>
-		<div class="list-group">
-			<div class="list-group-item">
-				<span>Conversations with new messages</span>
-			</div>
-		</div>
-		<div class="list-group">
-			<div class="list-group-item">
-				<span>Events at <%= currentUser.city %></span>
-			</div>
-		</div>
+    <div class="list-group">
+      <div class="list-group-item">
+        <span>You <% if(pending){ %> are waiting for <a href="/relations"><small class="label badge-pill"><%= pending %></small></a> requests<% } else { %>have no pending requests</span><% } %>
+      </div>
+    </div>
+    <% if(currentUser.city !== 'Other') { %>
+		  <div class="list-group">
+			  <div class="list-group-item">
+				  <span>No new events at <%= currentUser.city %></span>
+			  </div>
+		  </div>
+     <% } %>
 	</div>
 </div>
